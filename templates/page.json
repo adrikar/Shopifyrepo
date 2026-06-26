@@ -52,9 +52,55 @@
         "padding-block-start": 40,
         "padding-block-end": 80
       }
+    },
+    "multi_input_showcase": {
+      "type": "multi-input-showcase",
+      "blocks": {
+        "tarjeta_1": {
+          "type": "tarjeta",
+          "settings": {
+            "titulo_tarjeta": "Textos",
+            "texto_tarjeta": "Ejemplo de text y richtext."
+          }
+        },
+        "tarjeta_2": {
+          "type": "tarjeta",
+          "settings": {
+            "titulo_tarjeta": "Imagen",
+            "texto_tarjeta": "Ejemplo de image_picker."
+          }
+        },
+        "tarjeta_3": {
+          "type": "tarjeta",
+          "settings": {
+            "titulo_tarjeta": "Boton",
+            "texto_tarjeta": "Ejemplo de checkbox y url."
+          }
+        }
+      },
+      "block_order": [
+        "tarjeta_1",
+        "tarjeta_2",
+        "tarjeta_3"
+      ],
+      "settings": {
+        "etiqueta": "Demo simple",
+        "titulo": "Seccion con varios tipos de entrada",
+        "descripcion": "<p>Este ejemplo es simple para aprender como funcionan los settings y bloques.</p>",
+        "mostrar_boton": true,
+        "texto_boton": "Ver mas",
+        "enlace_boton": "/collections/all",
+        "tarjetas_por_fila": 3,
+        "color_fondo": "#f5f5f5",
+        "color_texto": "#222222",
+        "color_acento": "#008060",
+        "espacio_arriba": 40,
+        "espacio_abajo": 40
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "multi_input_showcase"
   ]
 }

@@ -1,0 +1,235 @@
+<section
+  class="mi-seccion"
+  style="
+    background-color: {{ section.settings.color_fondo }};
+    color: {{ section.settings.color_texto }};
+    padding-top: {{ section.settings.espacio_arriba }}px;
+    padding-bottom: {{ section.settings.espacio_abajo }}px;
+  "
+>
+  <div class="mi-seccion__contenedor">
+    <div class="mi-seccion__texto">
+      <p class="mi-seccion__etiqueta">
+        {{ section.settings.etiqueta }}
+      </p>
+
+      <h2>
+        {{ section.settings.titulo }}
+      </h2>
+
+      <div>
+        {{ section.settings.descripcion }}
+      </div>
+
+      {% if section.settings.mostrar_boton %}
+        <a class="mi-seccion__boton" href="{{ section.settings.enlace_boton }}">
+          {{ section.settings.texto_boton }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="mi-seccion__imagen">
+      {% if section.settings.imagen != blank %}
+        {{ section.settings.imagen | image_url: width: 700 | image_tag }}
+      {% else %}
+        {{ 'image' | placeholder_svg_tag }}
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="mi-seccion__tarjetas">
+    {% for block in section.blocks %}
+      <div class="mi-seccion__tarjeta" {{ block.shopify_attributes }}>
+        <h3>{{ block.settings.titulo_tarjeta }}</h3>
+        <p>{{ block.settings.texto_tarjeta }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+  .mi-seccion {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .mi-seccion__contenedor {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    gap: 30px;
+  }
+
+  .mi-seccion__etiqueta {
+    color: {{ section.settings.color_acento }};
+    font-weight: bold;
+  }
+
+  .mi-seccion__imagen img,
+  .mi-seccion__imagen svg {
+    width: 100%;
+    height: auto;
+  }
+
+  .mi-seccion__boton {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 20px;
+    background-color: {{ section.settings.color_acento }};
+    color: white;
+    text-decoration: none;
+  }
+
+  .mi-seccion__tarjetas {
+    max-width: 1100px;
+    margin: 30px auto 0;
+    display: grid;
+    gap: 15px;
+  }
+
+  .mi-seccion__tarjeta {
+    border: 1px solid #dddddd;
+    padding: 20px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .mi-seccion__contenedor {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .mi-seccion__tarjetas {
+      grid-template-columns: repeat({{ section.settings.tarjetas_por_fila }}, 1fr);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Seccion de practica",
+  "settings": [
+    {
+      "type": "text",
+      "id": "etiqueta",
+      "label": "Etiqueta pequena",
+      "default": "Estoy aprendiendo Shopify"
+    },
+    {
+      "type": "text",
+      "id": "titulo",
+      "label": "Titulo",
+      "default": "Mi primera seccion personalizada"
+    },
+    {
+      "type": "richtext",
+      "id": "descripcion",
+      "label": "Descripcion",
+      "default": "<p>Esta seccion usa varios tipos de entrada en el schema.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "imagen",
+      "label": "Imagen"
+    },
+    {
+      "type": "checkbox",
+      "id": "mostrar_boton",
+      "label": "Mostrar boton",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "texto_boton",
+      "label": "Texto del boton",
+      "default": "Ver mas"
+    },
+    {
+      "type": "url",
+      "id": "enlace_boton",
+      "label": "Enlace del boton"
+    },
+    {
+      "type": "range",
+      "id": "tarjetas_por_fila",
+      "label": "Tarjetas por fila",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "color",
+      "id": "color_fondo",
+      "label": "Color de fondo",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "color_texto",
+      "label": "Color del texto",
+      "default": "#222222"
+    },
+    {
+      "type": "color",
+      "id": "color_acento",
+      "label": "Color de acento",
+      "default": "#008060"
+    },
+    {
+      "type": "range",
+      "id": "espacio_arriba",
+      "label": "Espacio arriba",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "espacio_abajo",
+      "label": "Espacio abajo",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tarjeta",
+      "name": "Tarjeta",
+      "settings": [
+        {
+          "type": "text",
+          "id": "titulo_tarjeta",
+          "label": "Titulo de la tarjeta",
+          "default": "Titulo"
+        },
+        {
+          "type": "textarea",
+          "id": "texto_tarjeta",
+          "label": "Texto de la tarjeta",
+          "default": "Texto de ejemplo para esta tarjeta."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Seccion de practica",
+      "blocks": [
+        {
+          "type": "tarjeta"
+        },
+        {
+          "type": "tarjeta"
+        },
+        {
+          "type": "tarjeta"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
